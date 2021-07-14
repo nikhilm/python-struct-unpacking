@@ -1,7 +1,7 @@
 import struct
 import timeit
 
-N = 100000
+N = 1000000
 FORMAT = '>qqqq'
 
 def create_buffer():
@@ -17,10 +17,16 @@ from __main__ import (
     create_buffer,
     plain_unpack,
 )
+from c_unpack import (
+    cython_unpack,
+    cython_unpack_typed,
+)
 buf = create_buffer()"""
 
     tests = [
         ("plain unpack()", "plain_unpack({})"),
+        ("cython unpack()", "cython_unpack('{}', {{}})".format(FORMAT)),
+        ("cython typed unpack()", "cython_unpack_typed('{}', {{}})".format(FORMAT)),
     ]
 
     print("---------------------------------------------")
