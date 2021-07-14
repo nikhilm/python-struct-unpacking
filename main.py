@@ -1,4 +1,5 @@
 import struct
+import sys
 import timeit
 
 N = 1000000
@@ -46,7 +47,7 @@ cython_struct_obj = get_compiled_struct_obj('{format}')""".format(format=FORMAT)
         ("plain unpack_from()", "plain_unpack_from({})"),
         ("cython unpack()", "cython_unpack('{}', {{}})".format(FORMAT)),
         ("cython unpack_from()", "cython_unpack_from('{}', {{}})".format(FORMAT)),
-        ("cython typed unpack()", "cython_unpack_typed('{}', {{}})".format(FORMAT)),
+        ("cython typed unpack()", "cython_unpack_typed({}('{}'), {{}})".format('unicode' if sys.version_info.major == 2 else 'str', FORMAT, '')),
 
         ("plain compiled unpack()", "compiled_unpack(struct_obj, {})"),
         ("cython compiled unpack()", "cython_compiled_unpack(cython_struct_obj, {})"),
